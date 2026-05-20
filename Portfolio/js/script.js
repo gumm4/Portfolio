@@ -17,7 +17,6 @@ prrojetos.addEventListener("click", () => {
     if (prrojetos.dataset.invisivel === "true") {
 
         prrojetos.dataset.invisivel = "false";
-        
     }  else {
 
         prrojetos.dataset.invisivel = "true";
