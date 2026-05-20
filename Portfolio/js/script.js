@@ -4,9 +4,26 @@
 
 const botao = document.getElementById("modoClaroEscuro");
 const body = document.body;
+const prrojetos = document.getElementById("projetoVisivel");
+
 
 botao.addEventListener("click", () => {
     body.classList.toggle("dark-mode");
+});
+
+
+prrojetos.addEventListener("click", () => {
+
+    if (prrojetos.dataset.invisivel === "true") {
+
+        prrojetos.dataset.invisivel = "false";
+        
+    }  else {
+
+        prrojetos.dataset.invisivel = "true";
+
+    }
+   
 });
 
 // ============================================================
@@ -252,3 +269,81 @@ muda.addEventListener("click", () => {
         mudaTexto.innerText = "🎨 Alterar Fundo da Caixa";
     }
 });
+
+console.log("Iniciando...");
+
+setTimeout(() =>{
+
+    console.log("Dados Carregados!");
+}, 3000);
+
+console.log("FIm do Carregamento.");
+
+const minhaPromessa = new Promise((resolve, reject) => {
+
+    const deuCerto = true;
+
+    if (deuCerto) {
+        resolve("Operação concluída com sucesso!");
+    } else {
+        reject("Ops")
+    }
+});
+
+minhaPromessa
+    .then((resultado) => console.log("Ok", resultado))
+    .catch(erro => console.log("Erro",erro));
+
+//async/await
+
+    fetch('https://api.example.com/data')
+    .then(resposta => resposta.json())
+    .then(dados => console.log("Dados recebidos:", dados))
+    .catch(erro => console.log("Erro",erro));
+
+
+    async function buscarDados() {
+
+        const resposta = await fetch("https://api.exemplo.com/dados")
+        const dados = await resposta.json();
+        console.log("Dados recebidos", dados);
+        
+    };
+
+    async function buscarAPI(url){
+        try {
+            const resposta = await fetch(url);
+            if (!resposta.ok) {
+                throw new Error(`Erro http: ${resposta.status} ${resposta.statusText}`);
+            }
+
+            const dados = await resposta.json();
+
+            return dados;
+        } catch (erro) {
+            console.log("Erro",erro);
+            return null;
+        }
+    }
+
+
+    /*
+    1°Passo - Achar a URL da API; https://api.quotable.io/random
+    2°Passo - Ver quais endpoints estão disponíveis
+    3°Passo - Ver quais parâmetros são necessários para cada endpoint
+    4°Passo - Fazer a primeira chamada no navegador: verem o json
+    5°Passo - Identificar no console.log qual propriedade tem o dado desejado
+    */
+
+    async function buscasPokemon(nome) {
+
+        const dados = await buscarAPI(`https://pokeapi.co/api/v2/pokemon${nome}`);
+
+        if (dados) {
+            console.log(`O Pokémon ${dados.name} tem ID ${dados.id} e é tipo ${dados.types}`);
+            console.log(`Imagem:`, dados.sprites.font_default);
+        }
+        
+    }
+
+    buscarPokemon('mewtwo');
